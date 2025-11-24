@@ -1,45 +1,62 @@
-# الملف: app.py
 import streamlit as st
+import base64
 
-# ======================================
-# --- الأسطر الوحيدة التي يجب عليك تعديلها! ---
-# ======================================
-GIRLFRIEND_NAME = "يا حبيبتي الغالية" 
-MESSAGE = (
-    "كل سنة وأنتي ي أجمل إنسانة في حياتي.\n"
-    "انتي كل حاجه ليها كل حاجه اتمنتها كانت فيكي ي اجمل زكري حصلتلي في حياتي .\n"
-    "بحبك اوي يروح قلبي، وذكرياتنا هي كنزي."
-)
-# ضع أسماء صورك هنا. تأكد أن الأسماء مطابقة تماماً لما في المجلد (مثلاً: ["صورة_الرحلة.png", "صورة_1.jpeg"])
-PHOTO_FILES = ["p1.jpg", "p2.jpg"] 
-# ======================================
+# ============ إعدادات الصفحة ============
+st.set_page_config(page_title="Happy Birthday", layout="wide")
 
-# إعدادات التصميم (لا تعدل هذا القسم)
-st.set_page_config(layout="wide")
+# ===== خلفية حمرا + أنيميشن القلوب =====
+st.markdown("""
+    <style>
+    body {
+        background-color: #8b0000 !important;
+    }
+    .heart {
+        position: fixed;
+        top: -10px;
+        color: pink;
+        font-size: 30px;
+        animation: fall 5s linear infinite;
+    }
+    @keyframes fall {
+        0% {transform: translateY(0) translateX(0);}
+        100% {transform: translateY(100vh) translateX(20px);}
+    }
+    </style>
 
-st.markdown(f"""
-<style>
-.stApp {{ background-color: #f7e8ec; text-align: right; direction: rtl; }}
-h1, h2, h3 {{ color: #a73a64; text-align: center; font-family: 'Arial', sans-serif; }}
-.message-box {{ background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }}
-</style>
+    <script>
+    const createHeart = () => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    };
+    setInterval(createHeart, 300);
+    </script>
 """, unsafe_allow_html=True)
 
-# 1. شاشة الترحيب والرسالة
-st.markdown("<h1>🎉 عيد ميلاد سعيد يا ي اجمل انسانه في حياتي ي كل حياتي " + GIRLFRIEND_NAME + "</h1>", unsafe_allow_html=True)
-st.markdown(f"<div class='message-box'><p>{MESSAGE}</p></div>", unsafe_allow_html=True)
+# ===== تشغيل موسيقى =====
+def play_music(file_path):
+    audio_file = open(file_path, "rb").read()
+    audio_bytes = base64.b64encode(audio_file).decode()
+    st.markdown(f"""
+    <audio autoplay loop>
+        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
+    </audio>
+    """, unsafe_allow_html=True)
 
-st.divider()
+play_music("music.mp3")  # ← حط اسم ملف الموسيقى هنا
 
-# 2. معرض الصور
-st.header("🖼️ معرض الصور")
-cols = st.columns(len(PHOTO_FILES))
+# ===== الرسالة =====
+st.markdown("<h1 style='text-align:center; color:white;'>❤️ عيد ميلاد سعيد ❤️</h1>", unsafe_allow_html=True)
 
-for i, photo_name in enumerate(PHOTO_FILES):
-    try:
-        with cols[i]:
-            # عرض الصورة مع وصف بسيط
-            st.image(photo_name, use_column_width=True, caption=f"ذكرى رقم {i+1}")
-    except FileNotFoundError:
-        # رسالة خطأ إذا لم يتم العثور على الصورة
-        st.error(f"خطأ: لم يتم العثور على الصورة باسم {photo_name}. تأكد من وجودها في نفس المجلد!")
+st.write("")
+
+st.markdown("""
+<div style='background:white; padding:20px; border-radius:10px; text-align:right;'>
+كل سنة وأنتي أجمل إنسانة في حياتي ❤️  
+وجودك هو أحلى حاجة حصلتلي…  
+ربنا يخليكي لقلبي ويبارك فيكي يا عمري.
+</div>
+""", unsafe_allow_html=True)
