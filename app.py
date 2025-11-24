@@ -46,7 +46,7 @@ def play_music(file_path):
     </audio>
     """, unsafe_allow_html=True)
 
-play_music("music.mp3")  # ← حط اسم ملف الموسيقى هنا
+play_music("music[1].mp3")  # ← حط اسم ملف الموسيقى هنا
 
 # ===== الرسالة =====
 st.markdown("<h1 style='text-align:center; color:white;'>❤️ عيد ميلاد سعيد ❤️</h1>", unsafe_allow_html=True)
