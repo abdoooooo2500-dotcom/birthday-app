@@ -88,12 +88,12 @@ st.markdown("""
 
 # ===== عرض الصور =====
 st.write("")
-st.header("📸 ذكريات جميلة ❤️")
+st.header("📸 احلي واجمل دكتور في الدينا  ❤️")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    st.image("p1.jpg", caption="❤️ ذكرى 1", use_column_width=True)
+    st.image("p1.jpg", caption="❤️بنتي يولاد والله ", use_column_width=True)
 
 with col2:
-    st.image("p2.jpg", caption="❤️ ذكرى 2", use_column_width=True)
+    st.image("p2.jpg", caption="❤️ بنتي يولاد والله ", use_column_width=True)
