@@ -1,62 +1,82 @@
 import streamlit as st
 import base64
+import random
 
-# ============ إعدادات الصفحة ============
-st.set_page_config(page_title="Happy Birthday", layout="wide")
+# إعدادات الصفحة
+st.set_page_config(page_title="Happy Birthday ❤️", layout="wide")
 
-# ===== خلفية حمرا + أنيميشن القلوب =====
+# ===== CSS للخلفية الحمرا =====
 st.markdown("""
     <style>
-    body {
-        background-color: #8b0000 !important;
+    .stApp {
+        background-color: #b30000 !important;
     }
-    .heart {
-        position: fixed;
-        top: -10px;
-        color: pink;
-        font-size: 30px;
-        animation: fall 5s linear infinite;
+    h1 {
+        color: white;
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
     }
-    @keyframes fall {
-        0% {transform: translateY(0) translateX(0);}
-        100% {transform: translateY(100vh) translateX(20px);}
+    .msg-box {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        font-size: 22px;
+        text-align: right;
+        line-height: 1.8;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+        margin-top: 20px;
     }
     </style>
-
-    <script>
-    const createHeart = () => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤";
-        heart.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
-    };
-    setInterval(createHeart, 300);
-    </script>
 """, unsafe_allow_html=True)
 
-# ===== تشغيل موسيقى =====
+# ===== تشغيل الموسيقى =====
 def play_music(file_path):
-    audio_file = open(file_path, "rb").read()
-    audio_bytes = base64.b64encode(audio_file).decode()
-    st.markdown(f"""
-    <audio autoplay loop>
-        <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
-    </audio>
-    """, unsafe_allow_html=True)
+    try:
+        audio_file = open(file_path, "rb").read()
+        audio_bytes = base64.b64encode(audio_file).decode()
+        st.markdown(
+            f"""
+            <audio autoplay loop>
+            <source src="data:audio/mp3;base64,{audio_bytes}" type="audio/mp3">
+            </audio>
+            """,
+            unsafe_allow_html=True
+        )
+    except:
+        st.error("⚠️ ملف الموسيقى غير موجود!")
 
-play_music("music[1].mp3")  # ← حط اسم ملف الموسيقى هنا
+play_music("music.mp3")
+
+# ===== القلوب المتحركة =====
+for _ in range(12):
+    size = random.randint(20, 40)
+    x = random.randint(0, 95)
+    st.markdown(
+        f"<div style='position:fixed; left:{x}vw; top:0vh; font-size:{size}px; color:pink;'>❤️</div>",
+        unsafe_allow_html=True
+    )
+
+# ===== عنوان رئيسي =====
+st.markdown("<h1>❤️  عيد ميلاد سعيد ي اجمل حد ليا يويو ❤️</h1>", unsafe_allow_html=True)
 
 # ===== الرسالة =====
-st.markdown("<h1 style='text-align:center; color:white;'>❤️ عيد ميلاد سعيد ❤️</h1>", unsafe_allow_html=True)
-
-st.write("")
-
 st.markdown("""
-<div style='background:white; padding:20px; border-radius:10px; text-align:right;'>
-كل سنة وأنتي أجمل إنسانة في حياتي ❤️  
-وجودك هو أحلى حاجة حصلتلي…  
-ربنا يخليكي لقلبي ويبارك فيكي يا عمري.
+<div class="msg-box">
+كل سنة وأنتي أجمل حاجة في حياتي ❤️  
+وجودك هو أجمل نعمة ربنا رزقني بيها…  
+ ربنا يخليكي لقلبي وتفضلي منوّراه دايمًا يا روحي ويبعد عننا الشيطان يبت سماح .  
 </div>
 """, unsafe_allow_html=True)
+
+# ===== عرض الصور =====
+st.write("")
+st.header("📸 ذكريات جميلة ❤️")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.image("p1.jpg", caption="❤️ ذكرى 1", use_column_width=True)
+
+with col2:
+    st.image("p2.jpg", caption="❤️ ذكرى 2", use_column_width=True)
