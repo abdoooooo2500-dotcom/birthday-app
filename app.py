@@ -7,27 +7,44 @@ st.set_page_config(page_title="Happy Birthday ❤️", layout="wide")
 
 # ===== CSS للخلفية الحمرا =====
 st.markdown("""
-    <style>
-    .stApp {
-        background-color: #b30000 !important;
-    }
-    h1 {
-        color: white;
-        text-align: center;
-        font-size: 50px;
-        font-weight: bold;
-    }
-    .msg-box {
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        font-size: 22px;
-        text-align: right;
-        line-height: 1.8;
-        box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
-        margin-top: 20px;
-    }
-    </style>
+<style>
+
+.stApp {
+    background: linear-gradient(135deg, #ff4d6d 0%, #ff758f 50%, #ffccd5 100%) !important;
+    background-attachment: fixed;
+}
+
+/* قلوب ناعمة في الخلفية */
+.stApp::before {
+    content: "❤ ❤ ❤ ❤ ❤";
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 120px;
+    color: rgba(255, 255, 255, 0.15);
+    letter-spacing: 60px;
+    z-index: -1;
+}
+
+/* قلوب صغيرة موزعة */
+.stApp::after {
+    content: "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤";
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    color: rgba(255, 255, 255, 0.12);
+    letter-spacing: 20px;
+    z-index: -1;
+}
+
+h1, h2, h3, p {
+    color: white !important;
+}
+
+</style>
 """, unsafe_allow_html=True)
 
 # ===== تشغيل الموسيقى =====
